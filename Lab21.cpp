@@ -1,5 +1,11 @@
 /*  Lab 21: Modifying dll demo to create a goat class
     Objectives: Amend the code as follows:
+        0. Write a class Goat that has these private member variables:
+            - age (int)
+            - name (string)
+            - color (string)
+            - names[] - a string array of 15 names. Use the replit AI feature to develop a quick list of names.
+            - colors[] - a string array of 15 colors. Use AI again.
         1. The Goat class will have two constructors, as expected:
             + The default constructor will randomly assign:
                 - an age, 1-20
@@ -25,7 +31,9 @@ const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 class DoublyLinkedList {
 private:
     struct Node {
-        int data;
+        int age;
+        string name;
+        string color;
         Node* prev;
         Node* next;
         Node(int val, Node* p = nullptr, Node* n = nullptr) {
@@ -41,6 +49,8 @@ private:
 public:
     // constructor
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
+    DoublyLinkedList(int goatAge, string goatName, string goatColor)
+    : head(nullptr), tail(nullptr), age(goatAge),  {}
 
     void push_back(int value) {
         Node* newNode = new Node(value);
@@ -150,7 +160,7 @@ public:
 
 // Driver program
 int main() {
-
+    srand(static_cast<unsigned int>(time(nullptr))); // Return current time as non-negative for srand
     DoublyLinkedList list;
     int size = rand() % (MAX_LS-MIN_LS+1) + MIN_LS;
 
