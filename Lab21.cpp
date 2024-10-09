@@ -16,7 +16,8 @@
         4. In main(), create a DoublyLinkedList object. Append to it a random number of Goat objects, range 5-20 or so.
         5. In main(), call your methods to print both forward and backward to show the proper traversals.
         6. Use srand(time(0)); as one of your first lines in main() to randomize your random numbers.
-        7. Update both of the print() methods that are in the class. Both should display the text "List is empty" if the list is empty; otherwise, output the list as shown in the sample output below.
+        7. Update both of the print() methods that are in the class. Both should display the text "List is empty" if the list is empty;
+                otherwise, output the list as shown in the sample output below.
 
     Design decisions:
 
@@ -39,8 +40,7 @@ private:
         Goat *prev;
         Goat *next;
         Goat(int goatAge, Goat *p = nullptr, Goat *n = nullptr)
-        {
-            
+        {            
             age = goatAge;
             prev = p;
             next = n;
