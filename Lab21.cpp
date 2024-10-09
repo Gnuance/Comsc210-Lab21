@@ -46,13 +46,15 @@ private:
     Node* head;
     Node* tail;
 
-    static const array<string, 15> names = {Nibbles, Billy, Clover, Pogo, Gigi, Biscuit, Snickers, Waffle, Tater Tot, Daisy, Pippin, Chomper, Marshmallow, Goaty McGoatface, Pebbles};
+    static const array<string, 15> names;
 
 public:
     // constructor
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
     DoublyLinkedList(int goatAge, string goatName, string goatColor)
     : head(nullptr), tail(nullptr), age(goatAge),  {}
+
+    
 
     void push_back(int value) {
         Node* newNode = new Node(value);
@@ -181,3 +183,5 @@ int main() {
 
     return 0;
 }
+
+const array<string, 15> names = {"Nibbles", "Billy", "Clover", "Pogo", "Gigi", "Biscuit", "Snickers", "Waffle", "Tater Tot", "Daisy", "Pippin", "Chomper", "Marshmallow", "Goaty McGoatface", "Pebbles"};
