@@ -49,13 +49,14 @@ private:
     Goat *head;
     Goat *tail;
 
+public:
+    // Public constant variables
     static const int NUM_ELEMENTS = 15;
     static const int AGE_MIN = 1;
     static const int AGE_MAX = 20;
     static const array<string, NUM_ELEMENTS> NAMES;
     static const array<string, NUM_ELEMENTS> COLORS;
 
-public:
     // constructor
     Herd()
     {
@@ -196,7 +197,7 @@ public:
     }
 };
 
-// Initialize array variables for names and colors. Must be done outside of class... Ugh, really c++???
+// Initialize array variables for names and colors. Apparently must be done outside of class... Ugh, really c++???
 const array<string, 15> Herd::NAMES = {"Nibbles", "Billy", "Clover", "Pogo", "Gigi", "Biscuit", "Snickers", "Waffle", "Tater Tot", "Daisy", "Pippin", "Chomper", "Marshmallow", "Goaty McGoatface", "Pebbles"};
 const array<string, 15> Herd::COLORS = {"Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Pink", "Cyan", "Magenta", "Teal", "Lime", "Brown", "Gray", "Lavender", "Coral"};
 
@@ -206,9 +207,10 @@ int main()
     const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20; // Constants for list size and records
     srand(static_cast<unsigned int>(time(nullptr))); // Return current time as non-negative for srand
     Herd herdList;
-    int size = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS;
+    int numOfGoats = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS; // Size of goat herd
+    Herd::Goat();
 
-    for (int i = 0; i < size; ++i)
+    for (int i = 0; i < numOfGoats; ++i)
         herdList.push_back(rand() % (MAX_NR - MIN_NR + 1) + MIN_NR);
     cout << "List forward: ";
     herdList.print();
