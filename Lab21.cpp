@@ -24,6 +24,7 @@
 
 #include <iostream>
 #include <ctime> // For time needed by srand
+#include <array> // For an array that actually has bounds checking
 using namespace std;
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
@@ -42,9 +43,10 @@ private:
             next = n;
         }
     };
-
     Node* head;
     Node* tail;
+
+    static const array<string, 15> names = {Nibbles, Billy, Clover, Pogo, Gigi, Biscuit, Snickers, Waffle, Tater Tot, Daisy, Pippin, Chomper, Marshmallow, Goaty McGoatface, Pebbles};
 
 public:
     // constructor
