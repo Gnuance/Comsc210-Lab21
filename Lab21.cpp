@@ -12,14 +12,14 @@
                 - a name, randomly selected from the 15-element names[] array
                 - a color, randomly selected from the 15-element colors[] array
         2. The parameter constructor will be a typical 3-element parameter setup.
-        3. Modify the DoublyLinkedList class's push_front() and push_back() functions such that it has a Goat object as a parameter, rather than an int. 
+        3. Modify the DoublyLinkedList class's push_front() and push_back() functions such that it has a Goat object as a parameter, rather than an int.
         4. In main(), create a DoublyLinkedList object. Append to it a random number of Goat objects, range 5-20 or so.
         5. In main(), call your methods to print both forward and backward to show the proper traversals.
         6. Use srand(time(0)); as one of your first lines in main() to randomize your random numbers.
         7. Update both of the print() methods that are in the class. Both should display the text "List is empty" if the list is empty; otherwise, output the list as shown in the sample output below.
 
     Design decisions:
-        
+
 */
 
 #include <iostream>
@@ -29,22 +29,26 @@ using namespace std;
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
-class Herd {
+// Class represents a goat herd with each struct representing 1 goat within the herd
+class Herd
+{
 private:
-    struct Goat {
+    struct Goat
+    {
         string name;
         string color;
         int age;
-        Goat* prev;
-        Goat* next;
-        Goat(int goatAge, Goat* p = nullptr, Goat* n = nullptr) {
-            age = goatAge; 
+        Goat *prev;
+        Goat *next;
+        Goat(int goatAge, Goat *p = nullptr, Goat *n = nullptr)
+        {
+            age = goatAge;
             prev = p;
             next = n;
         }
     };
-    Goat* head;
-    Goat* tail;
+    Goat *head;
+    Goat *tail;
 
     static const int NUM_ELEMENTS = 15;
     static const array<string, NUM_ELEMENTS> NAMES;
@@ -52,51 +56,61 @@ private:
 
 public:
     // constructor
-    Herd() { head = nullptr; tail = nullptr; }
+    Herd()
+    {
+        head = nullptr;
+        tail = nullptr;
+    }
     Herd(int goatAge, string goatName, string goatColor)
-    : head(nullptr), tail(nullptr) {}
+        : head(nullptr), tail(nullptr), Goat() {}
 
-    
-
-    void push_back(int value) {
-        Goat* newGoat = new Goat(value);
-        if (!tail)  // if there's no tail, the list is empty
+    void push_back(const Goat &g)
+    {
+        Goat *newGoat = new Goat(g);
+        if (!tail) // if there's no tail, the list is empty
             head = tail = newGoat;
-        else {
+        else
+        {
             tail->next = newGoat;
             newGoat->prev = tail;
             tail = newGoat;
         }
     }
 
-    void push_front(int value) {
-        Goat* newGoat = new Goat(value);
-        if (!head)  // if there's no head, the list is empty
+    void push_front(const Goat &g)
+    {
+        Goat *newGoat = new Goat(g);
+        if (!head) // if there's no head, the list is empty
             head = tail = newGoat;
-        else {
+        else
+        {
             newGoat->next = head;
             head->prev = newGoat;
             head = newGoat;
         }
     }
 
-    void insert_after(int value, int position) {
-        if (position < 0) {
+    void insert_after(const Goat &g, int position)
+    {
+        if (position < 0)
+        {
             cout << "Position must be >= 0." << endl;
             return;
         }
 
-        Goat* newGoat = new Goat(value);
-        if (!head) {
+        Goat *newGoat = new Goat(g);
+        if (!head)
+        {
             head = tail = newGoat;
             return;
         }
 
-        Goat* temp = head;
+        Goat *temp = head;
         for (int i = 0; i < position && temp; ++i)
             temp = temp->next;
 
-        if (!temp) {
+        if (!temp)
+        {
             cout << "Position exceeds list size. Goat not inserted.\n";
             delete newGoat;
             return;
@@ -111,67 +125,89 @@ public:
         temp->next = newGoat;
     }
 
-    void delete_Goat(int value) {
-        if (!head) return; // Empty list
+    void delete_Goat(const Goat &g)
+    {
+        if (!head)
+            return; // Empty list
 
-        Goat* temp = head;
-        while (temp && temp->name != value)
+        Goat *temp = head;
+        while (temp && temp != g)
             temp = temp->next;
 
-        if (!temp) return; // Value not found
+        if (!temp)
+            return; // Value not found
 
-        if (temp->prev) {
+        if (temp->prev)
+        {
             temp->prev->next = temp->next;
-        } else {
+        }
+        else
+        {
             head = temp->next; // Deleting the head
         }
 
-        if (temp->next) {
+        if (temp->next)
+        {
             temp->next->prev = temp->prev;
-        } else {
+        }
+        else
+        {
             tail = temp->prev; // Deleting the tail
         }
 
         delete temp;
     }
 
-    void print() {
-        Goat* current = head;
-        if (!current) return;
-        while (current) {
+    void print()
+    {
+        Goat *current = head;
+        if (!current)
+            return;
+        while (current)
+        {
             cout << current->name << " ";
             current = current->next;
         }
         cout << endl;
     }
 
-    void print_reverse() {
-        Goat* current = tail;
-        if (!current) return;
-        while (current) {
+    void print_reverse()
+    {
+        Goat *current = tail;
+        if (!current)
+            return;
+        while (current)
+        {
             cout << current->name << " ";
             current = current->prev;
         }
         cout << endl;
     }
 
-    ~Herd() {
-        while (head) {
-            Goat* temp = head;
+    ~Herd()
+    {
+        while (head)
+        {
+            Goat *temp = head;
             head = head->next;
             delete temp;
         }
     }
 };
 
+// Initialize array variables for names and colors. Must be done outside of class... Ugh, really c++???
+const array<string, 15> Herd::NAMES = {"Nibbles", "Billy", "Clover", "Pogo", "Gigi", "Biscuit", "Snickers", "Waffle", "Tater Tot", "Daisy", "Pippin", "Chomper", "Marshmallow", "Goaty McGoatface", "Pebbles"};
+const array<string, 15> Herd::COLORS = {"Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Pink", "Cyan", "Magenta", "Teal", "Lime", "Brown", "Gray", "Lavender", "Coral"};
+
 // Driver program
-int main() {
+int main()
+{
     srand(static_cast<unsigned int>(time(nullptr))); // Return current time as non-negative for srand
     Herd list;
-    int size = rand() % (MAX_LS-MIN_LS+1) + MIN_LS;
+    int size = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS;
 
     for (int i = 0; i < size; ++i)
-        list.push_back(rand() % (MAX_NR-MIN_NR+1) + MIN_NR);
+        list.push_back(rand() % (MAX_NR - MIN_NR + 1) + MIN_NR);
     cout << "List forward: ";
     list.print();
 
@@ -185,5 +221,3 @@ int main() {
 
     return 0;
 }
-
-const array<string, 15> Herd::names = {"Nibbles", "Billy", "Clover", "Pogo", "Gigi", "Biscuit", "Snickers", "Waffle", "Tater Tot", "Daisy", "Pippin", "Chomper", "Marshmallow", "Goaty McGoatface", "Pebbles"};
