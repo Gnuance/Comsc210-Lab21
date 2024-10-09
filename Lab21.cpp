@@ -29,25 +29,16 @@
 using namespace std;
 
 // Class represents a goat herd with each struct representing 1 goat within the herd
-class Herd
+class Goat
 {
 private:
-    struct Goat
-    {
-        string name;
-        string color;
-        int age;
-        Goat *prev;
-        Goat *next;
-        Goat(int goatAge, Goat *p = nullptr, Goat *n = nullptr)
-        {            
-            age = goatAge;
-            prev = p;
-            next = n;
-        }
-    };
-    Goat *head;
-    Goat *tail;
+    string name;
+    string color;
+    int age;
+    Goat *prev;
+    Goat *next;
+    static Goat *head;
+    static Goat *tail;
 
 public:
     // Public constant variables
@@ -58,12 +49,12 @@ public:
     static const array<string, NUM_ELEMENTS> COLORS;
 
     // constructor
-    Herd()
+    Goat()
     {
         head = nullptr;
         tail = nullptr;
     }
-    Herd(int goatAge, string goatName, string goatColor)
+    Goat(int goatAge, string goatName, string goatColor)
         : head(nullptr), tail(nullptr) {}
 
     void push_back(const Goat &g)
