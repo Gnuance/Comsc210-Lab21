@@ -27,8 +27,6 @@
 #include <array> // For an array that actually has bounds checking
 using namespace std;
 
-const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
-
 // Class represents a goat herd with each struct representing 1 goat within the herd
 class Herd
 {
@@ -42,6 +40,7 @@ private:
         Goat *next;
         Goat(int goatAge, Goat *p = nullptr, Goat *n = nullptr)
         {
+            
             age = goatAge;
             prev = p;
             next = n;
@@ -51,6 +50,8 @@ private:
     Goat *tail;
 
     static const int NUM_ELEMENTS = 15;
+    static const int AGE_MIN = 1;
+    static const int AGE_MAX = 20;
     static const array<string, NUM_ELEMENTS> NAMES;
     static const array<string, NUM_ELEMENTS> COLORS;
 
@@ -62,7 +63,7 @@ public:
         tail = nullptr;
     }
     Herd(int goatAge, string goatName, string goatColor)
-        : head(nullptr), tail(nullptr), Goat() {}
+        : head(nullptr), tail(nullptr) {}
 
     void push_back(const Goat &g)
     {
@@ -131,7 +132,7 @@ public:
             return; // Empty list
 
         Goat *temp = head;
-        while (temp && temp != g)
+        while (temp && temp != &g)
             temp = temp->next;
 
         if (!temp)
@@ -202,22 +203,23 @@ const array<string, 15> Herd::COLORS = {"Red", "Blue", "Green", "Yellow", "Purpl
 // Driver program
 int main()
 {
+    const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20; // Constants for list size and records
     srand(static_cast<unsigned int>(time(nullptr))); // Return current time as non-negative for srand
-    Herd list;
+    Herd herdList;
     int size = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS;
 
     for (int i = 0; i < size; ++i)
-        list.push_back(rand() % (MAX_NR - MIN_NR + 1) + MIN_NR);
+        herdList.push_back(rand() % (MAX_NR - MIN_NR + 1) + MIN_NR);
     cout << "List forward: ";
-    list.print();
+    herdList.print();
 
     cout << "List backward: ";
-    list.print_reverse();
+    herdList.print_reverse();
 
     cout << "Deleting list, then trying to print.\n";
-    list.~Herd();
+    herdList.~Herd();
     cout << "List forward: ";
-    list.print();
+    herdList.print();
 
     return 0;
 }
