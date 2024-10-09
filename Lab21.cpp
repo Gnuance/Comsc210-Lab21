@@ -29,52 +29,54 @@ using namespace std;
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
-class DoublyLinkedList {
+class Herd {
 private:
-    struct Node {
-        int age;
+    struct Goat {
         string name;
         string color;
-        Node* prev;
-        Node* next;
-        Node(int val, Node* p = nullptr, Node* n = nullptr) {
-            data = val; 
+        int age;
+        Goat* prev;
+        Goat* next;
+        Goat(int goatAge, Goat* p = nullptr, Goat* n = nullptr) {
+            age = goatAge; 
             prev = p;
             next = n;
         }
     };
-    Node* head;
-    Node* tail;
+    Goat* head;
+    Goat* tail;
 
-    static const array<string, 15> names;
+    static const int NUM_ELEMENTS = 15;
+    static const array<string, NUM_ELEMENTS> NAMES;
+    static const array<string, NUM_ELEMENTS> COLORS;
 
 public:
     // constructor
-    DoublyLinkedList() { head = nullptr; tail = nullptr; }
-    DoublyLinkedList(int goatAge, string goatName, string goatColor)
-    : head(nullptr), tail(nullptr), age(goatAge),  {}
+    Herd() { head = nullptr; tail = nullptr; }
+    Herd(int goatAge, string goatName, string goatColor)
+    : head(nullptr), tail(nullptr) {}
 
     
 
     void push_back(int value) {
-        Node* newNode = new Node(value);
+        Goat* newGoat = new Goat(value);
         if (!tail)  // if there's no tail, the list is empty
-            head = tail = newNode;
+            head = tail = newGoat;
         else {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
+            tail->next = newGoat;
+            newGoat->prev = tail;
+            tail = newGoat;
         }
     }
 
     void push_front(int value) {
-        Node* newNode = new Node(value);
+        Goat* newGoat = new Goat(value);
         if (!head)  // if there's no head, the list is empty
-            head = tail = newNode;
+            head = tail = newGoat;
         else {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
+            newGoat->next = head;
+            head->prev = newGoat;
+            head = newGoat;
         }
     }
 
@@ -84,36 +86,36 @@ public:
             return;
         }
 
-        Node* newNode = new Node(value);
+        Goat* newGoat = new Goat(value);
         if (!head) {
-            head = tail = newNode;
+            head = tail = newGoat;
             return;
         }
 
-        Node* temp = head;
+        Goat* temp = head;
         for (int i = 0; i < position && temp; ++i)
             temp = temp->next;
 
         if (!temp) {
-            cout << "Position exceeds list size. Node not inserted.\n";
-            delete newNode;
+            cout << "Position exceeds list size. Goat not inserted.\n";
+            delete newGoat;
             return;
         }
 
-        newNode->next = temp->next;
-        newNode->prev = temp;
+        newGoat->next = temp->next;
+        newGoat->prev = temp;
         if (temp->next)
-            temp->next->prev = newNode;
+            temp->next->prev = newGoat;
         else
-            tail = newNode; // Inserting at the end
-        temp->next = newNode;
+            tail = newGoat; // Inserting at the end
+        temp->next = newGoat;
     }
 
-    void delete_node(int value) {
+    void delete_Goat(int value) {
         if (!head) return; // Empty list
 
-        Node* temp = head;
-        while (temp && temp->data != value)
+        Goat* temp = head;
+        while (temp && temp->name != value)
             temp = temp->next;
 
         if (!temp) return; // Value not found
@@ -134,28 +136,28 @@ public:
     }
 
     void print() {
-        Node* current = head;
+        Goat* current = head;
         if (!current) return;
         while (current) {
-            cout << current->data << " ";
+            cout << current->name << " ";
             current = current->next;
         }
         cout << endl;
     }
 
     void print_reverse() {
-        Node* current = tail;
+        Goat* current = tail;
         if (!current) return;
         while (current) {
-            cout << current->data << " ";
+            cout << current->name << " ";
             current = current->prev;
         }
         cout << endl;
     }
 
-    ~DoublyLinkedList() {
+    ~Herd() {
         while (head) {
-            Node* temp = head;
+            Goat* temp = head;
             head = head->next;
             delete temp;
         }
@@ -165,7 +167,7 @@ public:
 // Driver program
 int main() {
     srand(static_cast<unsigned int>(time(nullptr))); // Return current time as non-negative for srand
-    DoublyLinkedList list;
+    Herd list;
     int size = rand() % (MAX_LS-MIN_LS+1) + MIN_LS;
 
     for (int i = 0; i < size; ++i)
@@ -177,11 +179,11 @@ int main() {
     list.print_reverse();
 
     cout << "Deleting list, then trying to print.\n";
-    list.~DoublyLinkedList();
+    list.~Herd();
     cout << "List forward: ";
     list.print();
 
     return 0;
 }
 
-const array<string, 15> names = {"Nibbles", "Billy", "Clover", "Pogo", "Gigi", "Biscuit", "Snickers", "Waffle", "Tater Tot", "Daisy", "Pippin", "Chomper", "Marshmallow", "Goaty McGoatface", "Pebbles"};
+const array<string, 15> Herd::names = {"Nibbles", "Billy", "Clover", "Pogo", "Gigi", "Biscuit", "Snickers", "Waffle", "Tater Tot", "Daisy", "Pippin", "Chomper", "Marshmallow", "Goaty McGoatface", "Pebbles"};
