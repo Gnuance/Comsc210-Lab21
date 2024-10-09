@@ -28,26 +28,15 @@
 #include <array> // For an array that actually has bounds checking
 using namespace std;
 
-// Class represents a goat herd with each struct representing 1 goat within the herd
-class Herd
+// Class represents individual goats
+class Goat
 {
 private:
-    struct Goat
-    {
-        string name;
-        string color;
-        int age;
-        Goat *prev;
-        Goat *next;
-        Goat(int goatAge, Goat *p = nullptr, Goat *n = nullptr)
-        {            
-            age = goatAge;
-            prev = p;
-            next = n;
-        }
-    };
-    Goat *head;
-    Goat *tail;
+    string name;
+    string color;
+    int age;
+    Goat *prev;
+    Goat *next;
 
 public:
     // Public constant variables
@@ -56,7 +45,27 @@ public:
     static const int AGE_MAX = 20;
     static const array<string, NUM_ELEMENTS> NAMES;
     static const array<string, NUM_ELEMENTS> COLORS;
+    Goat();
+    ~Goat();
+};
 
+Goat::Goat()
+: prev(nullptr), next(nullptr)
+{
+}
+
+Goat::~Goat()
+{
+}
+
+// Class represents a goat herd with pointers to the head and tail of the herd
+class Herd
+{
+private:
+    Goat *head;
+    Goat *tail;
+
+public:
     // constructor
     Herd()
     {
@@ -198,17 +207,16 @@ public:
 };
 
 // Initialize array variables for names and colors. Apparently must be done outside of class... Ugh, really c++???
-const array<string, 15> Herd::NAMES = {"Nibbles", "Billy", "Clover", "Pogo", "Gigi", "Biscuit", "Snickers", "Waffle", "Tater Tot", "Daisy", "Pippin", "Chomper", "Marshmallow", "Goaty McGoatface", "Pebbles"};
-const array<string, 15> Herd::COLORS = {"Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Pink", "Cyan", "Magenta", "Teal", "Lime", "Brown", "Gray", "Lavender", "Coral"};
+const array<string, 15> Goat::NAMES = {"Nibbles", "Billy", "Clover", "Pogo", "Gigi", "Biscuit", "Snickers", "Waffle", "Tater Tot", "Daisy", "Pippin", "Chomper", "Marshmallow", "Goaty McGoatface", "Pebbles"};
+const array<string, 15> Goat::COLORS = {"Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Pink", "Cyan", "Magenta", "Teal", "Lime", "Brown", "Gray", "Lavender", "Coral"};
 
 // Driver program
 int main()
 {
     const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20; // Constants for list size and records
-    srand(static_cast<unsigned int>(time(nullptr))); // Return current time as non-negative for srand
+    srand(static_cast<unsigned int>(time(nullptr)));             // Return current time as non-negative for srand
     Herd herdList;
     int numOfGoats = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS; // Size of goat herd
-    Herd::Goat();
 
     for (int i = 0; i < numOfGoats; ++i)
         herdList.push_back(rand() % (MAX_NR - MIN_NR + 1) + MIN_NR);
