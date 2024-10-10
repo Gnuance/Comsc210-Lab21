@@ -47,24 +47,24 @@ public:
     Goat *next;
     Goat();
     Goat(string, string, int);
+    string getName() { return name; };
+    string getColor() { return color; };
+    int getAge() { return age; };
     string &setRandomName()
     {
         name = NAMES.at(rand() % NAMES.size());
-        getName();
+        return name;
     };
     string &setRandomColor()
     {
         color = COLORS.at(rand() % COLORS.size());
-        getColor();
+        return color;
     };
     int &setRandomAge()
     {
         age = rand() % (AGE_MAX - AGE_MIN + 1) + AGE_MIN;
-        getAge();
+        return age;
     };
-    string getName() { return name; };
-    string getColor() { return color; };
-    int getAge() { return age; };
     ~Goat();
 };
 
@@ -262,7 +262,7 @@ int main()
     const int MIN_LS = 5, MAX_LS = 20;                        // Constants for list size and records
     srand(static_cast<unsigned int>(time(nullptr)));          // Return current time as non-negative for srand
     Goat goatimusPrime;                                       // Represents a goat, but not just any goat. The epitome of the goats. What every goat stives to be
-    Goat * goatPtr; // Pointer to create goat objects with parameters
+    Goat *goatPtr;                                            // Pointer to create goat objects with parameters
     Herd herdList;                                            // Represents entire herd of goats
     int numOfGoats = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS; // Size of goat herd
 
@@ -273,8 +273,8 @@ int main()
         goatimusPrime.setRandomColor();
         goatimusPrime.setRandomAge();
         herdList.push_back(goatimusPrime);
-        goatPtr = new Goat(setRandomName(), setRandomColor(), setRandomAge());
-        herdList.push_back(Goat(setRandomName(), setRandomColor(), setRandomAge()));
+        goatPtr = new Goat(goatPtr->setRandomName(), goatPtr->setRandomColor(), goatPtr->setRandomAge());
+        herdList.push_back(*goatPtr);
     }
 
     // Print goat herd list forward
