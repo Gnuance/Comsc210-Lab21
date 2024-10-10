@@ -47,9 +47,9 @@ public:
     Goat *next;
     Goat();
     Goat(string, string, int);
-    void setRandomName() {name = NAMES.at(rand() % NAMES.size());};
-    void setRandomColor() {color = COLORS.at(rand() % COLORS.size());};
-    void setRandomAge() {age = rand() % (AGE_MAX - AGE_MIN + 1) + AGE_MIN;};
+    void setRandomName() { name = NAMES.at(rand() % NAMES.size()); };
+    void setRandomColor() { color = COLORS.at(rand() % COLORS.size()); };
+    void setRandomAge() { age = rand() % (AGE_MAX - AGE_MIN + 1) + AGE_MIN; };
     string getName() { return name; };
     string getColor() { return color; };
     int getAge() { return age; };
@@ -62,6 +62,14 @@ const array<string, Goat::NUM_ELEMENTS> Goat::COLORS = {"Red", "Blue", "Green", 
 
 Goat::Goat()
     : prev(nullptr), next(nullptr)
+{
+    setRandomName();
+    setRandomColor();
+    setRandomAge();
+}
+
+Goat::Goat(string goatName, string goatColor, int goatAge)
+    : prev(nullptr), next(nullptr), name(goatName), color(goatColor), age(goatAge)
 {
 }
 
@@ -184,7 +192,8 @@ public:
     {
         Goat *current = head;
         if (!current)
-            return;
+            cout << "Herd list is empty. Your flock is gone. Time for a career change." << endl;
+        return;
         while (current)
         {
             cout << current->getName() << " ";
@@ -197,7 +206,8 @@ public:
     {
         Goat *current = tail;
         if (!current)
-            return;
+            cout << "Herd list is empty. Your flock is gone. Time for a career change." << endl;
+        return;
         while (current)
         {
             cout << current->getName() << " ";
@@ -226,24 +236,26 @@ int main()
     Herd herdList;                                               // Represents entire herd of goats
     int numOfGoats = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS;    // Size of goat herd
 
-    // For rand() num, create goat with all attributes, and push into list
+    // For rand() num, create goat with all attributes, and push into herd
     for (int i = 0; i < numOfGoats; ++i)
     {
-
-        herdList.push_back(rand() % (MAX_NR - MIN_NR + 1) + MIN_NR);
+        goatimusPrime.setRandomName();
+        goatimusPrime.setRandomColor();
+        goatimusPrime.setRandomAge();
+        herdList.push_back(goatimusPrime);
     }
 
     // Print goat herd list forward
-    cout << "List forward: ";
+    cout << endl  << "List forward: ";
     herdList.print();
 
     // Print goat herd list backwards
-    cout << "List backward: ";
+    cout << endl << "List backward: ";
     herdList.print_reverse();
 
-    cout << "Deleting list, then trying to print.\n";
+    cout << endl  << "Deleting list, then trying to print.";
     herdList.~Herd();
-    cout << "List forward: ";
+    cout << endl  << "List forward: ";
     herdList.print();
 
     return 0;
