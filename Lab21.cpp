@@ -47,11 +47,18 @@ public:
     Goat *next;
     Goat();
     Goat(string, string, int);
+    void setRandomName() {name = NAMES.at(rand() % NAMES.size());};
+    void setRandomColor() {color = COLORS.at(rand() % COLORS.size());};
+    void setRandomAge() {age = rand() % (AGE_MAX - AGE_MIN + 1) + AGE_MIN;};
     string getName() { return name; };
     string getColor() { return color; };
     int getAge() { return age; };
     ~Goat();
 };
+
+// Initialize array variables for names and colors. Apparently must be done outside of class... Ugh, really c++???
+const array<string, Goat::NUM_ELEMENTS> Goat::NAMES = {"Nibbles", "Billy", "Clover", "Pogo", "Gigi", "Biscuit", "Snickers", "Waffle", "Tater Tot", "Daisy", "Pippin", "Chomper", "Marshmallow", "Goaty McGoatface", "Pebbles"};
+const array<string, Goat::NUM_ELEMENTS> Goat::COLORS = {"Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Pink", "Cyan", "Magenta", "Teal", "Lime", "Brown", "Gray", "Lavender", "Coral"};
 
 Goat::Goat()
     : prev(nullptr), next(nullptr)
@@ -209,10 +216,6 @@ public:
         }
     }
 };
-
-// Initialize array variables for names and colors. Apparently must be done outside of class... Ugh, really c++???
-const array<string, 15> Goat::NAMES = {"Nibbles", "Billy", "Clover", "Pogo", "Gigi", "Biscuit", "Snickers", "Waffle", "Tater Tot", "Daisy", "Pippin", "Chomper", "Marshmallow", "Goaty McGoatface", "Pebbles"};
-const array<string, 15> Goat::COLORS = {"Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Pink", "Cyan", "Magenta", "Teal", "Lime", "Brown", "Gray", "Lavender", "Coral"};
 
 // Driver program
 int main()
