@@ -83,6 +83,7 @@ class Herd
 private:
     Goat *head;
     Goat *tail;
+    static const string EMPTY_HERD_MESSAGE;
 
 public:
     // constructor
@@ -191,15 +192,19 @@ public:
     void print()
     {
         Goat *current = head;
+        int count = 0; // Counter for formatting
+
         if (!current)
         {
-            cout << "Herd list is empty. Your flock is gone. Time for a career change." << endl;
+            cout << EMPTY_HERD_MESSAGE << endl;
             return;
         }
         while (current)
         {
-            cout << current->getName() << " ";
+            if (count > 0) cout << ", "; // Add ',' and space for any additional items            
+            cout << current->getName();
             current = current->next;
+            count++;
         }
         cout << endl;
     }
@@ -207,15 +212,19 @@ public:
     void print_reverse()
     {
         Goat *current = tail;
+        int count = 0; // Counter for formatting
+
         if (!current)
         {
-            cout << "Herd list is empty. Your flock is gone. Time for a career change." << endl;
+            cout << EMPTY_HERD_MESSAGE << endl;
             return;
         }
         while (current)
         {
+            if (count > 0) cout << ", "; // Add ',' and space for any additional items
             cout << current->getName() << " ";
             current = current->prev;
+            count++;
         }
         cout << endl;
     }
@@ -230,6 +239,8 @@ public:
         }
     }
 };
+
+const string Herd::EMPTY_HERD_MESSAGE = "Herd list is empty. Your flock is gone. Time for a career change.";
 
 // Driver program
 int main()
