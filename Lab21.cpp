@@ -47,9 +47,21 @@ public:
     Goat *next;
     Goat();
     Goat(string, string, int);
-    void setRandomName() { name = NAMES.at(rand() % NAMES.size()); };
-    void setRandomColor() { color = COLORS.at(rand() % COLORS.size()); };
-    void setRandomAge() { age = rand() % (AGE_MAX - AGE_MIN + 1) + AGE_MIN; };
+    string &setRandomName()
+    {
+        name = NAMES.at(rand() % NAMES.size());
+        getName();
+    };
+    string &setRandomColor()
+    {
+        color = COLORS.at(rand() % COLORS.size());
+        getColor();
+    };
+    int &setRandomAge()
+    {
+        age = rand() % (AGE_MAX - AGE_MIN + 1) + AGE_MIN;
+        getAge();
+    };
     string getName() { return name; };
     string getColor() { return color; };
     int getAge() { return age; };
@@ -201,7 +213,8 @@ public:
         }
         while (current)
         {
-            if (count > 0) cout << ", "; // Add ',' and space for any additional items            
+            if (count > 0)
+                cout << ", "; // Add ',' and space for any additional items
             cout << current->getName();
             current = current->next;
             count++;
@@ -221,7 +234,8 @@ public:
         }
         while (current)
         {
-            if (count > 0) cout << ", "; // Add ',' and space for any additional items
+            if (count > 0)
+                cout << ", "; // Add ',' and space for any additional items
             cout << current->getName() << " ";
             current = current->prev;
             count++;
@@ -245,19 +259,22 @@ const string Herd::EMPTY_HERD_MESSAGE = "Herd list is empty. Your flock is gone.
 // Driver program
 int main()
 {
-    const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20; // Constants for list size and records
-    srand(static_cast<unsigned int>(time(nullptr)));             // Return current time as non-negative for srand
-    Goat goatimusPrime;                                          // Represents a goat, but not just any goat. The epitome of the goats. What every goat stives to be
-    Herd herdList;                                               // Represents entire herd of goats
-    int numOfGoats = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS;    // Size of goat herd
+    const int MIN_LS = 5, MAX_LS = 20;                        // Constants for list size and records
+    srand(static_cast<unsigned int>(time(nullptr)));          // Return current time as non-negative for srand
+    Goat goatimusPrime;                                       // Represents a goat, but not just any goat. The epitome of the goats. What every goat stives to be
+    Goat * goatPtr; // Pointer to create goat objects with parameters
+    Herd herdList;                                            // Represents entire herd of goats
+    int numOfGoats = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS; // Size of goat herd
 
     // For rand() num, create goat with all attributes, and push into herd
-    for (int i = 0; i < numOfGoats; ++i)
+    for (int i = 0; i < numOfGoats / 2; ++i)
     {
         goatimusPrime.setRandomName();
         goatimusPrime.setRandomColor();
         goatimusPrime.setRandomAge();
         herdList.push_back(goatimusPrime);
+        goatPtr = new Goat(setRandomName(), setRandomColor(), setRandomAge());
+        herdList.push_back(Goat(setRandomName(), setRandomColor(), setRandomAge()));
     }
 
     // Print goat herd list forward
