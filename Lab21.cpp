@@ -35,8 +35,6 @@ private:
     string name;
     string color;
     int age;
-    Goat *prev;
-    Goat *next;
 
 public:
     // Public constant variables
@@ -45,12 +43,17 @@ public:
     static const int AGE_MAX = 20;
     static const array<string, NUM_ELEMENTS> NAMES;
     static const array<string, NUM_ELEMENTS> COLORS;
+    Goat *prev;
+    Goat *next;
     Goat();
+    string getName() {return name;};
+    string getColor() {return color;};
+    int getAge() {return age;};
     ~Goat();
 };
 
 Goat::Goat()
-: prev(nullptr), next(nullptr)
+    : prev(nullptr), next(nullptr)
 {
 }
 
@@ -176,7 +179,7 @@ public:
             return;
         while (current)
         {
-            cout << current->name << " ";
+            cout << current->getName() << " ";
             current = current->next;
         }
         cout << endl;
@@ -189,7 +192,7 @@ public:
             return;
         while (current)
         {
-            cout << current->name << " ";
+            cout << current->getName() << " ";
             current = current->prev;
         }
         cout << endl;
