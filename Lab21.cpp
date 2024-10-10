@@ -46,9 +46,10 @@ public:
     Goat *prev;
     Goat *next;
     Goat();
-    string getName() {return name;};
-    string getColor() {return color;};
-    int getAge() {return age;};
+    Goat(string, string, int);
+    string getName() { return name; };
+    string getColor() { return color; };
+    int getAge() { return age; };
     ~Goat();
 };
 
@@ -218,14 +219,22 @@ int main()
 {
     const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20; // Constants for list size and records
     srand(static_cast<unsigned int>(time(nullptr)));             // Return current time as non-negative for srand
-    Herd herdList;
-    int numOfGoats = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS; // Size of goat herd
+    Goat goatimusPrime;                                          // Represents a goat, but not just any goat. The epitome of the goats. What every goat stives to be
+    Herd herdList;                                               // Represents entire herd of goats
+    int numOfGoats = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS;    // Size of goat herd
 
+    // For rand() num, create goat with all attributes, and push into list
     for (int i = 0; i < numOfGoats; ++i)
+    {
+
         herdList.push_back(rand() % (MAX_NR - MIN_NR + 1) + MIN_NR);
+    }
+
+    // Print goat herd list forward
     cout << "List forward: ";
     herdList.print();
 
+    // Print goat herd list backwards
     cout << "List backward: ";
     herdList.print_reverse();
 
