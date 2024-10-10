@@ -192,8 +192,10 @@ public:
     {
         Goat *current = head;
         if (!current)
+        {
             cout << "Herd list is empty. Your flock is gone. Time for a career change." << endl;
-        return;
+            return;
+        }
         while (current)
         {
             cout << current->getName() << " ";
@@ -206,8 +208,10 @@ public:
     {
         Goat *current = tail;
         if (!current)
+        {
             cout << "Herd list is empty. Your flock is gone. Time for a career change." << endl;
-        return;
+            return;
+        }
         while (current)
         {
             cout << current->getName() << " ";
@@ -246,16 +250,20 @@ int main()
     }
 
     // Print goat herd list forward
-    cout << endl  << "List forward: ";
+    cout << endl
+         << "List forward: ";
     herdList.print();
 
     // Print goat herd list backwards
-    cout << endl << "List backward: ";
+    cout << endl
+         << "List backward: ";
     herdList.print_reverse();
 
-    cout << endl  << "Deleting list, then trying to print.";
+    cout << endl
+         << "Deleting list, then trying to print.";
     herdList.~Herd();
-    cout << endl  << "List forward: ";
+    cout << endl
+         << "List forward: ";
     herdList.print();
 
     return 0;
