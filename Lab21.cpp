@@ -201,9 +201,7 @@ public:
         }
         while (current)
         {
-            if (count > 0)
-                cout << ", "; // Add ',' and space for any additional items
-            cout << current->getName() << "(" << current->getColor() << ", " << current->getAge() << ")";
+            cout << "\n\t" << current->getName() << " (" << current->getColor() << ", " << current->getAge() << ")";
             current = current->next;
             count++;
         }
@@ -222,9 +220,7 @@ public:
         }
         while (current)
         {
-            if (count > 0)
-                cout << ", "; // Add ',' and space for any additional items
-            cout << current->getName() << " ";
+            cout << "\n\t" << current->getName() << " (" << current->getColor() << ", " << current->getAge() << ")";
             current = current->prev;
             count++;
         }
@@ -267,13 +263,11 @@ int main()
     goatPtr = nullptr; // No longer needed
 
     // Print goat herd list forward
-    cout << endl
-         << "List forward: ";
+    cout << "List forward: ";
     herdList.print();
 
     // Print goat herd list backwards
-    cout << endl
-         << "List backward: ";
+    cout << endl << "List backward: ";
     herdList.print_reverse();
 
     cout << endl
