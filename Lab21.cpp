@@ -203,7 +203,7 @@ public:
         {
             if (count > 0)
                 cout << ", "; // Add ',' and space for any additional items
-            cout << current->getName();
+            cout << current->getName() << "(" << current->getColor() << ", " << current->getAge() << ")";
             current = current->next;
             count++;
         }
@@ -249,24 +249,22 @@ int main()
 {
     const int MIN_LS = 5, MAX_LS = 20;                        // Constants for list size and records
     srand(static_cast<unsigned int>(time(nullptr)));          // Return current time as non-negative for srand
-    Goat goatimusPrime;                                       // Represents a goat, but not just any goat. The epitome of the goats. What every goat stives to be
-    Goat *goatPtr = nullptr;                                  // Pointer for goat object
+    Goat *goatPtr = nullptr;                                  // Pointer for goat object. Represents a goat, but not just any goat.
+                                                              // The epitome of the goats. What every goat stives to be
     Herd herdList;                                            // Represents entire herd of goats
     int numOfGoats = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS; // Size of goat herd
 
     // For rand() num, create goat with all attributes, and push into herd
     for (int i = 0; i < numOfGoats / 2; ++i)
     {
-        goatimusPrime.setRandomName();
-        goatimusPrime.setRandomColor();
-        goatimusPrime.setRandomAge();
-        herdList.push_back(goatimusPrime);
         goatPtr = new Goat();
+        herdList.push_back(*goatPtr); // Append object that was created with default constructor
         goatPtr->setRandomName();
         goatPtr->setRandomColor();
         goatPtr->setRandomAge();
-        herdList.push_back(*goatPtr);
+        herdList.push_back(*(new Goat(goatPtr->getName(), goatPtr->getColor(), goatPtr->getAge())));
     }
+    goatPtr = nullptr; // No longer needed
 
     // Print goat herd list forward
     cout << endl
